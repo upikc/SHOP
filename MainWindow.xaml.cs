@@ -49,5 +49,11 @@ namespace SHOP
             AlertAnimation.AutoReverse = true;
             AlertLabel.BeginAnimation(Button.OpacityProperty, AlertAnimation);
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            new Window1().Show();
+            Close();
+        }
     }
 }

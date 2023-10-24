@@ -11,7 +11,7 @@
         <TextBox x:Name="PasswordTBox"  HorizontalAlignment="Center" Margin="0,183,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" Width="280" FontSize="24"/>
         <Button Content="ВХОД" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top" Height="43" Width="125" Click="Button_Enter_Press"/>
         <Button Content="РЕГИСТРАЦИЯ" HorizontalAlignment="Left" Margin="10,318,0,0" VerticalAlignment="Top" Height="43" Width="125" Click="Button_Click"/>
-        <Button Content="ГОСТЕВОЙ ВХОД" HorizontalAlignment="Left" Margin="10,270,0,0" VerticalAlignment="Top" Height="43" Width="125"/>
+        <Button Content="ГОСТЕВОЙ ВХОД" HorizontalAlignment="Left" Margin="10,270,0,0" VerticalAlignment="Top" Height="43" Width="125" Click="Button_Click_1"/>
         <Label x:Name="AlertLabel" Content="не верный пароль" HorizontalAlignment="Center" Margin="0,366,0,0" VerticalAlignment="Top" FontSize="28" Foreground="Red" Background="Black" Opacity="0"/>
 
     </Grid>

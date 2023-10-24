@@ -5,13 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SHOP"
         mc:Ignorable="d"
-        Title="Window1" Height="450" Width="800">
-    
-    <Grid>
+        Title="Window1" Height="450" Width="800" MinHeight="325" MinWidth="500" SizeChanged="Window_SizeChanged"  >
+
+    <Grid ShowGridLines="True">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition/>
+            <ColumnDefinition Width="0.3*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="0.1*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ComboBox Grid.Row="1" />
+            <TextBox Grid.Row="2" Background="#FF3F847D"/>
+        </Grid>
+
+
+        <Grid Grid.Column="1">
+            <ListView x:Name="Products_ListView" Grid.Row="1" />
+
+
+
+        </Grid>
+        
+        
         
     </Grid>
 </Window>
