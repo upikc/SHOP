@@ -13,19 +13,32 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
 namespace SHOP
 {
     public partial class ProdControl : UserControl
     {
+
         public ProdControl(Product_class Prod)
         {
             InitializeComponent();
             DataContext = Prod;
 
-            string Category_STR = DataBaseContext.Category.First(C => C.Category_ID == Prod.Category_ID).Name;
-            string Creator_STR = DataBaseContext.Category.First(C => C.Creator_ID == Prod.Creator_ID).Name;
+            Price.Content = Prod.Prise + " Рублей";
+            Count.Content = Prod.Count + " Штук";
+
+            CategoryLab.Content = DataBaseContext.Category.First(C => C.ID == Prod.Category_ID).Name;
 
 
+            CreatorLab.Content = DataBaseContext.Creators.First(C => C.ID == Prod.Creator_ID).Name;
+
+
+
+        }
+
+        private void my_image_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            new ImageViev(my_image.Source).Show();
         }
     }
 }
