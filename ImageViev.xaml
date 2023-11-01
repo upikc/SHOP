@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SHOP"
         mc:Ignorable="d"
-        Title="ImageViev" SizeToContent="WidthAndHeight" MouseLeave="Window_MouseLeave" WindowStyle="None" MaxWidth="450" MinHeight="450" WindowStartupLocation="CenterOwner"  >
+        Title="ImageViev" SizeToContent="WidthAndHeight" MouseLeave="Window_MouseLeave" WindowStyle="None" MaxWidth="450" MinHeight="450" WindowStartupLocation="CenterOwner" Topmost="True"  >
         
     <Grid>
         <Image x:Name="Image" MouseLeftButtonDown="Image_MouseLeftButtonDown"/>

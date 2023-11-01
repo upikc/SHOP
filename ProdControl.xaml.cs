@@ -29,11 +29,7 @@ namespace SHOP
 
             CategoryLab.Content = DataBaseContext.Category.First(C => C.ID == Prod.Category_ID).Name;
 
-
             CreatorLab.Content = DataBaseContext.Creators.First(C => C.ID == Prod.Creator_ID).Name;
-
-
-
         }
 
         private void my_image_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)

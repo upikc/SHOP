@@ -22,8 +22,9 @@
                 <RowDefinition Height="0.1*" />
                 <RowDefinition Height="0.1*" />
                 <RowDefinition Height="0.09*" />
-                <RowDefinition Height="0.2*" />
-                <RowDefinition Height="0.9*" />
+                <RowDefinition Height="0.20*" />
+                <RowDefinition Height="0.20*" />
+                <RowDefinition Height="0.5*" />
             </Grid.RowDefinitions>
             <ComboBox x:Name="Sorf_comboBox" Grid.Row="1" SelectedIndex="2" FontSize="18" SelectionChanged="Sorf_comboBox_SelectionChanged">
                 <sys:String>Цена товара</sys:String>
@@ -48,6 +49,8 @@
 
             </Grid>
             <ListView x:Name="CategoruListView" Grid.Row="4" />
+            <ListView x:Name="CreatorsListView" Grid.Row="5" />
+
 
 
         </Grid>

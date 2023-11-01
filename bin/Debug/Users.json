@@ -1,0 +1,17 @@
+[
+  {
+    "login": "upik",
+    "pass": "321",
+    "role": 1
+  },
+  {
+    "login": "upikA",
+    "pass": "123",
+    "role": 2
+  },
+  {
+    "login": "log",
+    "pass": "pass",
+    "role": 1
+  }
+]

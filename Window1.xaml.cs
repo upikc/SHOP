@@ -4,8 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-
-
+using System.Windows.Controls.Primitives;
 
 namespace SHOP
 {
@@ -65,9 +64,31 @@ namespace SHOP
             }
 
 
-            this.Title = "window " + LocalProducts.Count.ToString();
-            ReadinProdList(LocalProducts);
+
+            List<Product_class> sortTed = new List<Product_class>();
+            if (LocalProducts != null && CategoruListView != null)
+            foreach (var prod in LocalProducts)
+            {
+                string nameOfCategoru = DataBaseContext.Category.First(C => C.ID == prod.Category_ID).Name; 
+
+                foreach (CheckBox ChechBoxCat in CategoruListView.Items)
+                {
+                    if (nameOfCategoru == ChechBoxCat.Content.ToString() && ChechBoxCat.IsChecked == true)
+                    {
+                            sortTed.Add(prod);
+                            break;
+                    }
+                }
+            }
+
+            Window_SizeChanged();
+            this.Title = "window " + sortTed.Count.ToString();
+            ReadinProdList(sortTed);
         }
+
+
+
+
 
         public Window1()
         {
@@ -76,14 +97,25 @@ namespace SHOP
 
             Products_ListView.ItemsSource = ProdList;
 
-            foreach (Creator_class C_class in DataBaseContext.Creators)
+            foreach(var C_class in DataBaseContext.Category)
             {
-                CategoruListView.Items.Add(new CheckBox{ Content = C_class.Name });
+                var buff = new CheckBox { Content = C_class.Name , IsChecked = true};
+                buff.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(CheckBox_Checked));
+                CategoruListView.Items.Add(buff);//Добавляем чекбоксы категорий
             }
+            foreach (var Creator in DataBaseContext.Creators)
+            {
+                var buff = new CheckBox { Content = Creator.Name, IsChecked = true };
+                buff.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(CheckBox_Checked));
+                CreatorsListView.Items.Add(buff);//Добавляем чекбоксы категорий
+            }//ОБЬЕДЕНИТЬ ЭТО В ОДИН МЕТОД
+
+            Sorter_Cbox_Search_CatSelect();//первичная сортировка и вывод
         }
 
         private void Window_SizeChanged(object sender = null, SizeChangedEventArgs e = null)
         {
+            if (Products_ListView != null)
             foreach (ProdControl item in Products_ListView.Items)
                 item.Width = GetOptimalItemWidth();
         }
@@ -121,6 +153,11 @@ namespace SHOP
         }
 
         private void Sorf_comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)//делаем сортировку пузырьком
+        {
+            Sorter_Cbox_Search_CatSelect();
+        }
+
+        private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             Sorter_Cbox_Search_CatSelect();
         }
