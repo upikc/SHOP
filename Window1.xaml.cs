@@ -137,6 +137,7 @@ namespace SHOP
             if (Products_ListView != null)
             foreach (ProdControl item in Products_ListView.Items)
                 item.Width = GetOptimalItemWidth();
+
         }
 
         private double GetOptimalItemWidth()
@@ -165,8 +166,7 @@ namespace SHOP
 
         private void UserButton_Click(object sender, RoutedEventArgs e)//покупака
         {
-            ChTextBox.Text = "бесплатные деньги\n";
-
+            ChTextBox.Text = "";
             int summ = 0;
             foreach (ProdControl item in Products_ListView.Items)
             {

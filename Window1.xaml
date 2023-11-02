@@ -52,7 +52,7 @@
             <ListView x:Name="CreatorsListView" Grid.Row="5" Background="Transparent" />
 
 
-            <TextBox x:Name="ChTextBox" Grid.Row="6" TextWrapping="Wrap"  Text="texttexttext" Background="Transparent" VerticalScrollBarVisibility="Auto" />
+            <TextBox x:Name="ChTextBox" Grid.Row="6" TextWrapping="Wrap"  Background="Transparent" VerticalScrollBarVisibility="Auto" IsReadOnly="True" FontSize="20" />
             
 
             <Button x:Name="AdminButton" Background="Red" Content="изменение" Margin="2,2,2,2" HorizontalAlignment="Left" Visibility="Hidden" Click="AdminButton_Click"/>
