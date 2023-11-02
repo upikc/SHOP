@@ -138,5 +138,19 @@ namespace SHOP
             CategoruDataGrid.FontSize = f;
             CreatorDataGrid.FontSize = f;
         }
+
+        private void CategoruDataGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Catd.Remove(CategoruDataGrid.SelectedItem as Сategory_class);
+            CategoruDataGrid.ItemsSource = null;
+            CategoruDataGrid.ItemsSource = Catd;
+        }
+
+        private void CreatorDataGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Creat.Remove(CreatorDataGrid.SelectedItem as Creator_class);
+            CreatorDataGrid.ItemsSource = null;
+            CreatorDataGrid.ItemsSource = Creat;
+        }
     }
 }

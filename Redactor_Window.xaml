@@ -21,10 +21,10 @@
 
             <DataGrid x:Name="ProductsDataGrid" Grid.Column="0" MouseRightButtonDown="ProductsDataGrid_MouseRightButtonDown" MouseDoubleClick="ProductsDataGrid_MouseDoubleClick"/>
 
-            <DataGrid x:Name="CategoruDataGrid" Grid.Column="1">
+            <DataGrid x:Name="CategoruDataGrid" Grid.Column="1" MouseRightButtonDown="CategoruDataGrid_MouseRightButtonDown">
             </DataGrid>
 
-            <DataGrid x:Name="CreatorDataGrid" Grid.Column="2">
+            <DataGrid x:Name="CreatorDataGrid" Grid.Column="2" MouseRightButtonDown="CreatorDataGrid_MouseRightButtonDown">
             </DataGrid>
         </Grid>
 
