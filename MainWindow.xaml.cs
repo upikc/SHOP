@@ -37,9 +37,10 @@ namespace SHOP
         private void Button_Enter_Press(object sender, RoutedEventArgs e)
         {
             var UserList = JsonConvert.DeserializeObject<List<user>>(File.ReadAllText("Users.json"));
-            if (UserList.Any(p => p.login == LoginTBox.Text.Trim() && p.pass == PasswordTBox.Text))
+            var user = UserList.FirstOrDefault(p => p.login == LoginTBox.Text.Trim() && p.pass == PasswordTBox.Text);
+            if (user != null)
             {
-                new Window1().Show();
+                new Window1(user.role).Show();
                 Close();
             }
             DoubleAnimation AlertAnimation = new DoubleAnimation();
@@ -52,7 +53,7 @@ namespace SHOP
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new Window1().Show();
+            new Window1(2).Show();
             Close();
         }
     }

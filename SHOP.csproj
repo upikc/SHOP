@@ -67,6 +67,9 @@
     <Compile Include="ProdControl.xaml.cs">
       <DependentUpon>ProdControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Redactor_Window.xaml.cs">
+      <DependentUpon>Redactor_Window.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Registration.xaml.cs">
       <DependentUpon>Registration.xaml</DependentUpon>
     </Compile>
@@ -93,6 +96,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="ProdControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Redactor_Window.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

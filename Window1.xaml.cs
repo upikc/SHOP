@@ -67,33 +67,48 @@ namespace SHOP
 
             List<Product_class> sortTed = new List<Product_class>();
             if (LocalProducts != null && CategoruListView != null)
-            foreach (var prod in LocalProducts)
             {
-                string nameOfCategoru = DataBaseContext.Category.First(C => C.ID == prod.Category_ID).Name; 
-
-                foreach (CheckBox ChechBoxCat in CategoruListView.Items)
+                foreach (var prod in LocalProducts)
                 {
-                    if (nameOfCategoru == ChechBoxCat.Content.ToString() && ChechBoxCat.IsChecked == true)
+                    string nameOfCategoru = DataBaseContext.Category.First(C => C.ID == prod.Category_ID).Name;
+                    string nameOfCreator = DataBaseContext.Creators.First(C => C.ID == prod.Creator_ID).Name;
+
+                    foreach (CheckBox ChechBoxCat in CategoruListView.Items)
                     {
-                            sortTed.Add(prod);
-                            break;
+                        if (nameOfCategoru == ChechBoxCat.Content.ToString() && ChechBoxCat.IsChecked == true)
+                        {
+                            //sortTed.Add(prod); //сортировка только категории
+                            foreach (CheckBox ChechBoxCreat in CreatorsListView.Items)
+                            {
+                                if (nameOfCreator == ChechBoxCreat.Content.ToString() && ChechBoxCreat.IsChecked == true)
+                                {
+                                    sortTed.Add(prod);
+                                    break;//секретный метод сортировки от Стюковой
+                                }
+                            }
+                        }
                     }
                 }
+
             }
 
-            Window_SizeChanged();
+
             this.Title = "window " + sortTed.Count.ToString();
             ReadinProdList(sortTed);
+            Window_SizeChanged();//ИЗМЕНИТЬ РАЗМЕР ОКНА ПРИ КАЖДЫЙ СОРТИРОВКЕ
         }
 
 
 
 
 
-        public Window1()
+        public Window1(int user)
         {
             InitializeComponent();
-
+            if (user == 1)
+                UserButton.Visibility = Visibility.Visible;
+            else if (user == 2)
+                AdminButton.Visibility = Visibility.Visible;
 
             Products_ListView.ItemsSource = ProdList;
 
@@ -160,6 +175,17 @@ namespace SHOP
         private void CheckBox_Checked(object sender, RoutedEventArgs e)
         {
             Sorter_Cbox_Search_CatSelect();
+        }
+
+        private void UserButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AdminButton_Click(object sender, RoutedEventArgs e)
+        {
+            new Redactor_Window().Show();
+            Close();
         }
     }
 }
