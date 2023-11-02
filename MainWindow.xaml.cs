@@ -53,7 +53,7 @@ namespace SHOP
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new Window1(2).Show();
+            new Window1(1).Show();
             Close();
         }
     }

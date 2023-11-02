@@ -51,9 +51,13 @@
             <ListView x:Name="CategoruListView" Grid.Row="4" Background="Transparent" />
             <ListView x:Name="CreatorsListView" Grid.Row="5" Background="Transparent" />
 
+
+            <TextBox x:Name="ChTextBox" Grid.Row="6" TextWrapping="Wrap"  Text="texttexttext" Background="Transparent" VerticalScrollBarVisibility="Auto" />
+            
+
             <Button x:Name="AdminButton" Background="Red" Content="изменение" Margin="2,2,2,2" HorizontalAlignment="Left" Visibility="Hidden" Click="AdminButton_Click"/>
             <Button x:Name="UserButton" Content="покупка" Margin="2,2,2,2" HorizontalAlignment="Center" Background="#FF64B3EF" Visibility="Hidden" Click="UserButton_Click"/>
-
+            
         </Grid>
 
 

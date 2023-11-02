@@ -13,6 +13,10 @@
         </Grid.ColumnDefinitions>
         <Image x:Name="my_image" Grid.Column="0" Source="{Binding Images}" HorizontalAlignment="Left" PreviewMouseLeftButtonDown="my_image_PreviewMouseLeftButtonDown"/>
 
+        <Button x:Name="Button1" Grid.Column="0" Margin="3,130,130,3" Background="#4CEF0000" Content="+" FontSize="30" Visibility="Hidden" Click="Button1_Click" />
+        <Label x:Name="label1" FontSize="30" Visibility="Hidden" Content="0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Background="#B24D0D54"  />
+        <Button x:Name="Button2" Grid.Column="0" Margin="130,130,3,3" Background="#4C000FEF" Content="-" FontSize="30" Visibility="Hidden" Click="Button2_Click" />
+
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition/>
@@ -28,7 +32,7 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
 
-                <Label  Grid.Column="0" Content="{Binding Name}" FontSize="36" Grid.RowSpan="2"/>
+                <Label x:Name="nameLab"  Grid.Column="0" Content="{Binding Name}" FontSize="36" Grid.RowSpan="2"/>
 
                 <Label Content="{Binding Description}" Grid.Column="1" Grid.Row="0" FontSize="22" Background="#3B000000"/>
 
@@ -39,7 +43,7 @@
             <Grid Grid.Row="1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition  />
-                    <ColumnDefinition  />
+                    <ColumnDefinition Width="2*"  />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition/>
@@ -47,7 +51,8 @@
                 </Grid.RowDefinitions>
                 <Label x:Name="CategoryLab" Grid.Row="0" FontSize="22"/>
                 <Label x:Name="Count" Grid.Row="1" FontSize="22"/>
-                <Label x:Name="Price" Grid.Row="1" Grid.Column="1"  FontSize="22"/>
+                <Label x:Name="Price" Grid.Row="1" Grid.Column="1"  FontSize="22" Margin="33,0,0,0"/>
+                
             </Grid>
 
 

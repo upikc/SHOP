@@ -18,10 +18,13 @@ namespace SHOP
 {
     public partial class ProdControl : UserControl
     {
-
-        public ProdControl(Product_class Prod)
+        public int count;
+        public int IntPrise;
+        public ProdControl(Product_class Prod , int userD)
         {
             InitializeComponent();
+            count = Prod.Count;
+            IntPrise = Prod.Prise;
             DataContext = Prod;
 
             Price.Content = Prod.Prise + " Рублей";
@@ -30,11 +33,32 @@ namespace SHOP
             CategoryLab.Content = DataBaseContext.Category.First(C => C.ID == Prod.Category_ID).Name;
 
             CreatorLab.Content = DataBaseContext.Creators.First(C => C.ID == Prod.Creator_ID).Name;
+
+            
+            if (userD == 1)
+            {
+            Button1.Visibility = Visibility.Visible;
+            Button2.Visibility = Visibility.Visible;
+            label1.Visibility = Visibility.Visible;
+            }
+
         }
 
         private void my_image_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             new ImageViev(my_image.Source).Show();
+        }
+
+        private void Button1_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.Parse(label1.Content.ToString()) < count)
+                label1.Content = int.Parse(label1.Content.ToString())+1;
+        }
+
+        private void Button2_Click(object sender, RoutedEventArgs e)
+        {
+            if (int.Parse(label1.Content.ToString()) > 0)
+            label1.Content = int.Parse(label1.Content.ToString()) -1;
         }
     }
 }

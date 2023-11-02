@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -12,13 +13,14 @@ namespace SHOP
     public partial class Window1 : Window
     {
         public ObservableCollection<ProdControl> ProdList = new ObservableCollection<ProdControl>();
+        public int userD;
 
         private void ReadinProdList(List<Product_class> SortedClasssesProducts)
         {
             ProdList.Clear();
             foreach (Product_class Pclass in SortedClasssesProducts)
             {
-                ProdList.Add(new ProdControl(Pclass));//добавление пока что без сортировки
+                ProdList.Add(new ProdControl(Pclass , userD));//добавление 
             }
 
         }
@@ -105,6 +107,8 @@ namespace SHOP
         public Window1(int user)
         {
             InitializeComponent();
+            userD = user;
+
             if (user == 1)
                 UserButton.Visibility = Visibility.Visible;
             else if (user == 2)
@@ -147,24 +151,6 @@ namespace SHOP
         {
             Sorter_Cbox_Search_CatSelect();
 
-            //Products_ListView.Items.Clear(); //ВСЕ **** НЕ РАБОТАЕТ ЭТО БОЛЬШЕ
-            //if (SearchTBox.Text.Trim() != "")
-            //{
-            //    foreach (Product_class product in (from prod in DataBaseContext.Products where prod.Name.ToLower().Contains(SearchTBox.Text.Trim().ToLower()) select prod))
-            //    {
-            //        Products_ListView.Items.Add(new ProdControl(product));
-            //    }
-            //}
-            //else
-            //{
-            //    foreach (Product_class product in DataBaseContext.Products)
-            //    {
-            //        Products_ListView.Items.Add(new ProdControl(product));
-            //    }
-            //}
-            //foreach (ProdControl item in Products_ListView.Items)
-            //    Window_SizeChanged();
-
         }
 
         private void Sorf_comboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)//делаем сортировку пузырьком
@@ -177,8 +163,22 @@ namespace SHOP
             Sorter_Cbox_Search_CatSelect();
         }
 
-        private void UserButton_Click(object sender, RoutedEventArgs e)
+        private void UserButton_Click(object sender, RoutedEventArgs e)//покупака
         {
+            ChTextBox.Text = "бесплатные деньги\n";
+
+            int summ = 0;
+            foreach (ProdControl item in Products_ListView.Items)
+            {
+                int x = int.Parse(item.label1.Content.ToString());
+
+                summ += x * item.IntPrise;
+                if (x != 0)
+                    ChTextBox.Text += $"{item.nameLab.Content.ToString()} {x} * {item.IntPrise} = {x * item.IntPrise}\n";
+            }
+            ChTextBox.Text += "_____________________\nсумма ровна : " + summ;
+
+
 
         }
 
@@ -187,5 +187,6 @@ namespace SHOP
             new Redactor_Window().Show();
             Close();
         }
+
     }
 }
