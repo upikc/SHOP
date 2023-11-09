@@ -5,13 +5,28 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SHOP"
         mc:Ignorable="d"
-        Title="Registration" Height="450" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen"  >
+        Title="Registration" Height="450" Width="300" WindowStartupLocation="CenterScreen"  >
     <Grid>
-        <TextBox x:Name="LoginTBox" HorizontalAlignment="Center" Margin="0,142,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" FontSize="24"/>
-        <TextBox x:Name="PasswordTBox" HorizontalAlignment="Center" Margin="0,183,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="280" FontSize="24"/>
-        <Button Content="НАЗАД" HorizontalAlignment="Left" Margin="10,222,0,0" VerticalAlignment="Top" Height="43" Width="140" Click="ButtonEscape_Click"/>
-        <Button Content="ЗАРЕГИСТРИРОВАТЬСЯ" HorizontalAlignment="Left" Margin="10,270,0,0" VerticalAlignment="Top" Height="43" Width="140" Click="Button_Click_1"/>
-        <Label x:Name="AlertLabel" Content="Ошибка оОшибка" HorizontalAlignment="Center" Margin="0,318,0,0" VerticalAlignment="Top" FontSize="28" Foreground="Red" Background="Black" Opacity="0"/>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2.5*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="LoginTBox"  TextWrapping="Wrap" FontSize="24" Grid.Row="1" Grid.ColumnSpan="2"/>
+        <TextBox x:Name="PasswordTBox" TextWrapping="Wrap" FontSize="24"  Grid.Row="2" Grid.ColumnSpan="2"/>
+        <Button Content="НАЗАД" Click="ButtonEscape_Click" Grid.Row="3"/>
+        <Button Content="ЗАРЕГИСТРИРОВАТЬСЯ"  Click="Button_Click_1"  Grid.Row="4"/>
+        <Label x:Name="AlertLabel" Content="Ошибка оОшибка"  FontSize="28" Foreground="Red" Background="Black" Opacity="0"  Grid.Row="5" Grid.ColumnSpan="2" />
 
     </Grid>
 </Window>

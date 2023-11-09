@@ -36,7 +36,7 @@ namespace SHOP
 
         private void Button_Enter_Press(object sender, RoutedEventArgs e)
         {
-            var UserList = JsonConvert.DeserializeObject<List<user>>(File.ReadAllText("Users.json"));
+            var UserList = DataBaseContext.GetUserList()    ;
             var user = UserList.FirstOrDefault(p => p.login == LoginTBox.Text.Trim() && p.pass == PasswordTBox.Text);
             if (user != null)
             {

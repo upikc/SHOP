@@ -52,11 +52,8 @@
                 <Label x:Name="CategoryLab" Grid.Row="0" FontSize="22"/>
                 <Label x:Name="Count" Grid.Row="1" FontSize="22"/>
                 <Label x:Name="Price" Grid.Row="1" Grid.Column="1"  FontSize="22" Margin="33,0,0,0"/>
-                
+
             </Grid>
-
-
-
         </Grid>
 
 

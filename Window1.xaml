@@ -26,6 +26,7 @@
                 <RowDefinition Height="0.2*" />
                 <RowDefinition Height="0.5*" />
             </Grid.RowDefinitions>
+
             <ComboBox x:Name="Sorf_comboBox" Grid.Row="1" SelectedIndex="2" FontSize="18" SelectionChanged="Sorf_comboBox_SelectionChanged">
                 <sys:String>Цена товара</sys:String>
                 <sys:String>Количество товара</sys:String>
@@ -56,8 +57,9 @@
             
 
             <Button x:Name="AdminButton" Background="Red" Content="изменение" Margin="2,2,2,2" HorizontalAlignment="Left" Visibility="Hidden" Click="AdminButton_Click"/>
-            <Button x:Name="UserButton" Content="покупка" Margin="2,2,2,2" HorizontalAlignment="Center" Background="#FF64B3EF" Visibility="Hidden" Click="UserButton_Click"/>
-            
+            <Button x:Name="UserButton" Content="покупка" Margin="2,2,2,2" HorizontalAlignment="Left" Background="#FF64B3EF" Visibility="Hidden" Click="UserButton_Click"/>
+            <Button  Content="выход" Margin="2,2,2,2" HorizontalAlignment="Right" Background="#FF31B46D" Click="Button_Click"/>
+
         </Grid>
 
 

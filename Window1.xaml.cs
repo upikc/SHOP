@@ -27,77 +27,80 @@ namespace SHOP
 
         private void Sorter_Cbox_Search_CatSelect()
         {
-            List<Product_class> LocalProducts = DataBaseContext.Products;
+            //List<Product_class> LocalProducts = DataBaseContext.Products;   //НАЧИНАЙ ЗАСУВЫВАТЬ В ДАТАКОНТЕКСТ ОТ СЮДА
 
 
-            if (SearchTBox != null && SearchTBox.Text.Trim() != "")
-                LocalProducts = (from prod in DataBaseContext.Products where prod.Name.ToLower().Contains(SearchTBox.Text.Trim().ToLower()) select prod).ToList();
-            //сортировка букавками
+            //if (SearchTBox != null && SearchTBox.Text.Trim() != "")
+            //    LocalProducts = (from prod in DataBaseContext.Products where prod.Name.ToLower().Contains(SearchTBox.Text.Trim().ToLower()) select prod).ToList();
+            ////сортировка букавками
 
-            if (minTextBox != null && int.TryParse(minTextBox.Text, out int minInt))
-                LocalProducts = (from prod in LocalProducts where (prod.Prise >= minInt) select prod).ToList();
-            //сортировка цифрами
+            //if (minTextBox != null && int.TryParse(minTextBox.Text, out int minInt))
+            //    LocalProducts = (from prod in LocalProducts where (prod.Prise >= minInt) select prod).ToList();
+            ////сортировка цифрами
 
-            if (maxTextBox != null && int.TryParse(maxTextBox.Text, out int maxInt))
-                LocalProducts = (from prod in LocalProducts where (prod.Prise <= maxInt) select prod).ToList();
-            //сортировка цифрами
-
-
-            switch (Sorf_comboBox.SelectedIndex)
-            {
-                case 0:
-                    LocalProducts = LocalProducts.OrderBy(p => p.Prise).ToList();
-                    break;
-                case 1:
-                    LocalProducts = LocalProducts.OrderBy(p => p.Count).ToList();
-                    break;
-                case 2:
-                    LocalProducts = LocalProducts.OrderBy(p => p.Name).ToList();
-                    break;
-                case 3:
-                    LocalProducts = LocalProducts.OrderByDescending(p => p.Prise).ToList();
-                    break;
-                case 4:
-                    LocalProducts = LocalProducts.OrderByDescending(p => p.Count).ToList();
-                    break;
-                case 5:
-                    LocalProducts = LocalProducts.OrderByDescending(p => p.Name).ToList();
-                    break;
-            }
+            //if (maxTextBox != null && int.TryParse(maxTextBox.Text, out int maxInt))
+            //    LocalProducts = (from prod in LocalProducts where (prod.Prise <= maxInt) select prod).ToList();
+            ////сортировка цифрами
 
 
-
-            List<Product_class> sortTed = new List<Product_class>();
-            if (LocalProducts != null && CategoruListView != null)
-            {
-                foreach (var prod in LocalProducts)
-                {
-                    string nameOfCategoru = DataBaseContext.Category.First(C => C.ID == prod.Category_ID).Name;
-                    string nameOfCreator = DataBaseContext.Creators.First(C => C.ID == prod.Creator_ID).Name;
-
-                    foreach (CheckBox ChechBoxCat in CategoruListView.Items)
-                    {
-                        if (nameOfCategoru == ChechBoxCat.Content.ToString() && ChechBoxCat.IsChecked == true)
-                        {
-                            //sortTed.Add(prod); //сортировка только категории
-                            foreach (CheckBox ChechBoxCreat in CreatorsListView.Items)
-                            {
-                                if (nameOfCreator == ChechBoxCreat.Content.ToString() && ChechBoxCreat.IsChecked == true)
-                                {
-                                    sortTed.Add(prod);
-                                    break;//секретный метод сортировки от Стюковой
-                                }
-                            }
-                        }
-                    }
-                }
-
-            }
+            //switch (Sorf_comboBox.SelectedIndex)
+            //{
+            //    case 0:
+            //        LocalProducts = LocalProducts.OrderBy(p => p.Prise).ToList();
+            //        break;
+            //    case 1:
+            //        LocalProducts = LocalProducts.OrderBy(p => p.Count).ToList();
+            //        break;
+            //    case 2:
+            //        LocalProducts = LocalProducts.OrderBy(p => p.Name).ToList();
+            //        break;
+            //    case 3:
+            //        LocalProducts = LocalProducts.OrderByDescending(p => p.Prise).ToList();
+            //        break;
+            //    case 4:
+            //        LocalProducts = LocalProducts.OrderByDescending(p => p.Count).ToList();
+            //        break;
+            //    case 5:
+            //        LocalProducts = LocalProducts.OrderByDescending(p => p.Name).ToList();
+            //        break;
+            //}
 
 
-            this.Title = "window " + sortTed.Count.ToString();
-            ReadinProdList(sortTed);
-            Window_SizeChanged();//ИЗМЕНИТЬ РАЗМЕР ОКНА ПРИ КАЖДЫЙ СОРТИРОВКЕ
+
+            //List<Product_class> sortTed = new List<Product_class>();
+            //if (LocalProducts != null && CategoruListView != null)
+            //{
+            //    foreach (var prod in LocalProducts)
+            //    {
+            //        string nameOfCategoru = DataBaseContext.Category.First(C => C.ID == prod.Category_ID).Name;
+            //        string nameOfCreator = DataBaseContext.Creators.First(C => C.ID == prod.Creator_ID).Name;
+
+            //        foreach (CheckBox ChechBoxCat in CategoruListView.Items)
+            //        {
+            //            if (nameOfCategoru == ChechBoxCat.Content.ToString() && ChechBoxCat.IsChecked == true)
+            //            {
+            //                //sortTed.Add(prod); //сортировка только категории
+            //                foreach (CheckBox ChechBoxCreat in CreatorsListView.Items)
+            //                {
+            //                    if (nameOfCreator == ChechBoxCreat.Content.ToString() && ChechBoxCreat.IsChecked == true)
+            //                    {
+            //                        sortTed.Add(prod);
+            //                        break;//секретный метод сортировки от Стюковой
+            //                    }
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+
+
+
+            var SortedProdList =  DataBaseContext.SortedProd(this);
+
+            this.Title = "window " + SortedProdList.Count.ToString();
+
+            ReadinProdList(SortedProdList);
+            Window_SizeChanged();//ИЗМЕНИТЬ РАЗМЕР ПРОДКОНТРОЛОВ ПРИ КАЖДЫЙ СОРТИРОВКЕ
         }
 
 
@@ -188,5 +191,10 @@ namespace SHOP
             Close();
         }
 
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            new MainWindow().Show();
+            this.Close();
+        }
     }
 }

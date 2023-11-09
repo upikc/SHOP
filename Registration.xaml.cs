@@ -33,11 +33,11 @@ namespace SHOP
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            var UserList = JsonConvert.DeserializeObject<List<user>>(File.ReadAllText("Users.json"));
+            var UserList = DataBaseContext.GetUserList();
             if (!UserList.Any(p => p.login == LoginTBox.Text.Trim()) && !PasswordTBox.Text.Contains(" ") && LoginTBox.Text.Trim().Length > 3 && PasswordTBox.Text.Trim().Length > 3)
             {
                 UserList.Add(new user(LoginTBox.Text.Trim(), PasswordTBox.Text, 1));
-                File.WriteAllText("Users.json", JsonConvert.SerializeObject(UserList));
+                DataBaseContext.WriteAllJson(UserList);
                 ButtonEscape_Click();
             }
             else

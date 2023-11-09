@@ -49,15 +49,18 @@ namespace SHOP
             //CategoruDataGrid.ItemsSource = Cat;
 
 
-            Prod = DataBaseContext.Products;
-            ProductsDataGrid.ItemsSource = Prod;
+            try
+            {
+                Prod = DataBaseContext.Products;
+                ProductsDataGrid.ItemsSource = Prod;
 
-            Creat = DataBaseContext.Creators;
-            CreatorDataGrid.ItemsSource = Creat;
+                Creat = DataBaseContext.Creators;
+                CreatorDataGrid.ItemsSource = Creat;
 
-            Catd = DataBaseContext.Category;
-            CategoruDataGrid.ItemsSource = Catd;
-
+                Catd = DataBaseContext.Category;
+                CategoruDataGrid.ItemsSource = Catd;
+            }
+            catch (System.InvalidOperationException) { }//переопределить метод датагрида
 
             //ProductsDataGrid.ItemsSource = DataBaseContext.Products;
             //CreatorDataGrid.ItemsSource = DataBaseContext.Creators;
@@ -77,6 +80,12 @@ namespace SHOP
                         b = false;
                         break;
                     }
+                    //if (float.TryParse(item.Count , out float a))
+                    //{
+                    //    Prod.Remove(item);
+                    //    b = false;
+                    //    break;
+                    //}
                 }
                 if (b)
                 break;//можно изменить на удаление ошибок по клику
