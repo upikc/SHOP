@@ -97,13 +97,6 @@ namespace SHOP
 
         }
 
-        private void ProductsDataGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            Prod.Remove(ProductsDataGrid.SelectedItem as Product_class);
-            ProductsDataGrid.ItemsSource = null;
-            ProductsDataGrid.ItemsSource = Prod;
-
-        }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
@@ -115,10 +108,6 @@ namespace SHOP
                     return;
                 }
             }
-
-
-
-
             DataBaseContext.WriteAllJson(Prod, Creat, Catd);
         }
 
@@ -147,7 +136,12 @@ namespace SHOP
             CategoruDataGrid.FontSize = f;
             CreatorDataGrid.FontSize = f;
         }
-
+        private void ProductsDataGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            Prod.Remove(ProductsDataGrid.SelectedItem as Product_class);
+            ProductsDataGrid.ItemsSource = null;
+            ProductsDataGrid.ItemsSource = Prod;
+        }
         private void CategoruDataGrid_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
         {
             Catd.Remove(CategoruDataGrid.SelectedItem as Сategory_class);

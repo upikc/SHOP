@@ -13,5 +13,10 @@
     "login": "log",
     "pass": "pass",
     "role": 1
+  },
+  {
+    "login": "123ab",
+    "pass": "321ba",
+    "role": 1
   }
 ]

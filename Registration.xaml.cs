@@ -34,10 +34,10 @@ namespace SHOP
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             var UserList = DataBaseContext.GetUserList();
-            if (!UserList.Any(p => p.login == LoginTBox.Text.Trim()) && !PasswordTBox.Text.Contains(" ") && LoginTBox.Text.Trim().Length > 3 && PasswordTBox.Text.Trim().Length > 3)
+            if (DataBaseContext.isValidCredentials(UserList , LoginTBox.Text , LoginTBox.Text))
             {
                 UserList.Add(new user(LoginTBox.Text.Trim(), PasswordTBox.Text, 1));
-                DataBaseContext.WriteAllJson(UserList);
+                DataBaseContext.WriteUsersJson(UserList);
                 ButtonEscape_Click();
             }
             else

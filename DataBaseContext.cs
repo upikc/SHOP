@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace SHOP
 {
-    internal static class DataBaseContext
+    public static class DataBaseContext
     {
         private static List<Product_class> _Products { get; set; }
         private static List<Creator_class> _Creators { get; set; }
@@ -53,13 +53,13 @@ namespace SHOP
             File.WriteAllText("Сategory.json", JsonConvert.SerializeObject(Cat));
         }
 
-        public static void WriteAllJson(List<user> UserList)
+        public static void WriteUsersJson(List<user> UserList)
         {
             File.WriteAllText("Users.json", JsonConvert.SerializeObject(UserList));
         }
 
 
-        public static List<user> GetUserList() { return JsonConvert.DeserializeObject<List<user>>(File.ReadAllText("Users.json")); }
+        public static List<user> GetUserList() => JsonConvert.DeserializeObject<List<user>>(File.ReadAllText("Users.json"));
 
         public static List<Product_class> SortedProd(Window1 window)
         {
@@ -130,5 +130,12 @@ namespace SHOP
             }
             return sortTed;
         }
+
+        public static bool isValidCredentials(List<user> UserList , string LoginText , string PassText) => (!UserList.Any(p => p.login == LoginText.Trim()) && !PassText.Contains(" ") && LoginText.Trim().Length > 3 && PassText.Trim().Length > 3);
+
+
+
+
+
     }
 }
