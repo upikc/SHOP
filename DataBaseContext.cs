@@ -154,5 +154,21 @@ namespace SHOP
         public static user isValidCredentials_login(string login , string password) => DataBaseContext.UserList.FirstOrDefault(p => p.login == login.Trim() && p.pass == password);
 
 
+        public static List<Product_class> Basket(ListView Products_ListView)
+        {
+            List<Product_class> basket = new List<Product_class>();
+            foreach (ProdControl item in Products_ListView.Items)
+            {
+
+                if (int.TryParse(item.label1.Content.ToString(), out int f))
+                {
+                    item.ProdClass.Sold = f;
+                    basket.Add(item.ProdClass);
+                }
+            }
+            return basket;
+        }
+
+
     }
 }

@@ -169,16 +169,29 @@ namespace SHOP
 
         private void UserButton_Click(object sender, RoutedEventArgs e)//покупака
         {
+
+            
+
             ChTextBox.Text = "";
             int summ = 0;
-            foreach (ProdControl item in Products_ListView.Items)
-            {
-                int x = int.Parse(item.label1.Content.ToString());
+            //foreach (ProdControl item in Products_ListView.Items)
+            //{
+            //    int x = int.Parse(item.label1.Content.ToString());
 
-                summ += x * item.IntPrise;
-                if (x != 0)
-                    ChTextBox.Text += $"{item.nameLab.Content.ToString()} {x} * {item.IntPrise} = {x * item.IntPrise}\n";
+            //    summ += x * item.IntPrise;
+            //    if (x != 0)
+            //        ChTextBox.Text += $"{item.nameLab.Content.ToString()} {x} * {item.IntPrise} = {x * item.IntPrise}\n";
+            //}
+
+            foreach (Product_class productBuy in DataBaseContext.Basket(Products_ListView))
+            {
+                if (productBuy.Sold != 0)
+                    ChTextBox.Text += $"{productBuy.Name} {productBuy.Sold} * {productBuy.Prise} = {productBuy.Sold * productBuy.Prise}\n";
+                summ += productBuy.Sold * productBuy.Prise;
             }
+
+
+
             ChTextBox.Text += "_____________________\nсумма ровна : " + summ;
 
 

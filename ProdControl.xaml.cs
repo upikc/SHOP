@@ -20,9 +20,13 @@ namespace SHOP
     {
         public int count;
         public int IntPrise;
+
+        public Product_class ProdClass;
         public ProdControl(Product_class Prod , int userD)
         {
             InitializeComponent();
+
+            ProdClass = Prod;
             count = Prod.Count;
             IntPrise = Prod.Prise;
             DataContext = Prod;
