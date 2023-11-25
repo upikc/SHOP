@@ -34,7 +34,7 @@ namespace SHOP
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             var UserList = DataBaseContext.GetUserList();
-            if (DataBaseContext.isValidCredentials(UserList , LoginTBox.Text , LoginTBox.Text))
+            if (DataBaseContext.isValidCredentials_reg(UserList , LoginTBox.Text , LoginTBox.Text))
             {
                 UserList.Add(new user(LoginTBox.Text.Trim(), PasswordTBox.Text, 1));
                 DataBaseContext.WriteUsersJson(UserList);

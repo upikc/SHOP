@@ -10,13 +10,8 @@
     "role": 2
   },
   {
-    "login": "log",
+    "login": "loog",
     "pass": "pass",
-    "role": 1
-  },
-  {
-    "login": "123ab",
-    "pass": "321ba",
     "role": 1
   }
 ]

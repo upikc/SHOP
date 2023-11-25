@@ -36,8 +36,10 @@ namespace SHOP
 
         private void Button_Enter_Press(object sender, RoutedEventArgs e)
         {
-            var UserList = DataBaseContext.GetUserList()    ;
-            var user = UserList.FirstOrDefault(p => p.login == LoginTBox.Text.Trim() && p.pass == PasswordTBox.Text);
+
+            var user = DataBaseContext.isValidCredentials_login(LoginTBox.Text , PasswordTBox.Text);
+                //DataBaseContext.UserList.FirstOrDefault(p => p.login == LoginTBox.Text.Trim() && p.pass == PasswordTBox.Text);
+
             if (user != null)
             {
                 new Window1(user.role).Show();

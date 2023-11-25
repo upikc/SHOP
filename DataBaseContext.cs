@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -46,6 +47,7 @@ namespace SHOP
 
 
 
+        [ExcludeFromCodeCoverage]
         public static void WriteAllJson(List<Product_class> Prod, List<Creator_class> Creat, List<Сategory_class> Cat)
         {
             File.WriteAllText("Products.json", JsonConvert.SerializeObject(Prod));
@@ -53,6 +55,7 @@ namespace SHOP
             File.WriteAllText("Сategory.json", JsonConvert.SerializeObject(Cat));
         }
 
+        [ExcludeFromCodeCoverage]
         public static void WriteUsersJson(List<user> UserList)
         {
             File.WriteAllText("Users.json", JsonConvert.SerializeObject(UserList));
@@ -61,6 +64,21 @@ namespace SHOP
 
         public static List<user> GetUserList() => JsonConvert.DeserializeObject<List<user>>(File.ReadAllText("Users.json"));
 
+
+
+        private static List<user> _UserList { get; set; }
+        public static List<user> UserList
+        {
+            get
+            {
+                if (_UserList == null)
+                    _UserList = JsonConvert.DeserializeObject<List<user>>(File.ReadAllText("Users.json"));
+                return _UserList;
+            }
+        } //=> JsonConvert.DeserializeObject<List<user>>(File.ReadAllText("Users.json"));
+
+
+        [ExcludeFromCodeCoverage]
         public static List<Product_class> SortedProd(Window1 window)
         {
             List<Product_class> LocalProducts = DataBaseContext.Products;
@@ -131,10 +149,9 @@ namespace SHOP
             return sortTed;
         }
 
-        public static bool isValidCredentials(List<user> UserList , string LoginText , string PassText) => (!UserList.Any(p => p.login == LoginText.Trim()) && !PassText.Contains(" ") && LoginText.Trim().Length > 3 && PassText.Trim().Length > 3);
+        public static bool isValidCredentials_reg(List<user> UserList , string LoginText , string PassText) => (!UserList.Any(p => p.login == LoginText.Trim()) && !LoginText.Trim().Contains(" ") && !PassText.Contains(" ") && PassText.Trim().Length > 3 && LoginText.Trim().Length > 3);
 
-
-
+        public static user isValidCredentials_login(string login , string password) => DataBaseContext.UserList.FirstOrDefault(p => p.login == login.Trim() && p.pass == password);
 
 
     }
