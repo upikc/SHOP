@@ -42,7 +42,7 @@ namespace SHOP
 
             if (user != null)
             {
-                new Window1(user.role).Show();
+                new Window1(user).Show();
                 Close();
             }
             DoubleAnimation AlertAnimation = new DoubleAnimation();
@@ -55,7 +55,7 @@ namespace SHOP
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            new Window1(0).Show();
+            new Window1(new user("pass" , "pass" , 0)).Show();
             Close();
         }
     }

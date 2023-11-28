@@ -91,7 +91,7 @@ namespace SHOP
                 break;//можно изменить на удаление ошибок по клику
             }
             
-             new Window1(2).Show();
+             new Window1((new user("pass", "pass", 2))).Show();
              this.Close();
 
 

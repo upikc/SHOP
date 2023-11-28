@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,14 +14,14 @@ namespace SHOP
     public partial class Window1 : Window
     {
         public ObservableCollection<ProdControl> ProdList = new ObservableCollection<ProdControl>();
-        public int userD;
+        public user logged_user;
 
         private void ReadinProdList(List<Product_class> SortedClasssesProducts)
         {
             ProdList.Clear();
             foreach (Product_class Pclass in SortedClasssesProducts)
             {
-                ProdList.Add(new ProdControl(Pclass , userD));//добавление 
+                ProdList.Add(new ProdControl(Pclass , logged_user.role));//добавление 
             }
 
         }
@@ -107,14 +108,14 @@ namespace SHOP
 
 
 
-        public Window1(int user)
+        public Window1(user Muser)
         {
             InitializeComponent();
-            userD = user;
+            logged_user = Muser;
 
-            if (user == 1)
+            if (logged_user.role == 1)
                 UserButton.Visibility = Visibility.Visible;
-            else if (user == 2)
+            else if (logged_user.role == 2)
                 AdminButton.Visibility = Visibility.Visible;
 
             Products_ListView.ItemsSource = ProdList;
@@ -139,7 +140,7 @@ namespace SHOP
         {
             if (Products_ListView != null)
             foreach (ProdControl item in Products_ListView.Items)
-                item.Width = GetOptimalItemWidth();
+                item.Width = GetOptimalItemWidth() / 1.38;
 
         }
 
@@ -174,6 +175,7 @@ namespace SHOP
 
             ChTextBox.Text = "";
             int summ = 0;
+
             //foreach (ProdControl item in Products_ListView.Items)
             //{
             //    int x = int.Parse(item.label1.Content.ToString());
@@ -189,12 +191,9 @@ namespace SHOP
                     ChTextBox.Text += $"{productBuy.Name} {productBuy.Sold} * {productBuy.Prise} = {productBuy.Sold * productBuy.Prise}\n";
                 summ += productBuy.Sold * productBuy.Prise;
             }
-
-
-
             ChTextBox.Text += "_____________________\nсумма ровна : " + summ;
 
-
+            DataBaseContext.SocketSend(JsonConvert.SerializeObject(DataBaseContext.Basket(Products_ListView)) + "{%Yay$}" + JsonConvert.SerializeObject(logged_user));
 
         }
 

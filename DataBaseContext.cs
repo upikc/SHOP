@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Net.Sockets;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -160,7 +162,7 @@ namespace SHOP
             foreach (ProdControl item in Products_ListView.Items)
             {
 
-                if (int.TryParse(item.label1.Content.ToString(), out int f))
+                if (int.TryParse(item.label1.Content.ToString(), out int f) && f != 0)
                 {
                     item.ProdClass.Sold = f;
                     basket.Add(item.ProdClass);
@@ -169,6 +171,15 @@ namespace SHOP
             return basket;
         }
 
-
+        public static void SocketSend(string message = "null")
+        {
+            using (var socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp))
+            {
+                socket.Connect("localhost", 11000);
+                socket.Send(Encoding.UTF8.GetBytes(message));
+                socket.Close();
+                
+            }
+        }
     }
 }
