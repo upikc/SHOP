@@ -193,7 +193,7 @@ namespace SHOP
             }
             ChTextBox.Text += "_____________________\nсумма ровна : " + summ;
 
-            DataBaseContext.SocketSend(JsonConvert.SerializeObject(DataBaseContext.Basket(Products_ListView)) + "{%Yay$}" + JsonConvert.SerializeObject(logged_user));
+            DataBaseContext.SocketSend(JsonConvert.SerializeObject(DataBaseContext.Basket(Products_ListView))+ "{%Yay$}" + JsonConvert.SerializeObject(logged_user));
 
         }
 

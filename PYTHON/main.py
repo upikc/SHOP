@@ -2,8 +2,6 @@ import socket
 HOST = "localhost"
 PORT = 11000
 
-
-
 while True:
     server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     server.bind((HOST, PORT))
@@ -13,5 +11,3 @@ while True:
     data = client_socket.recv(1024)
     print(f"Received data from {client_address}: {data.decode('utf-8')}")
     server.close();
-
-
