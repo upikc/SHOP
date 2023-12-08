@@ -1,0 +1,21 @@
+﻿<Window x:Class="SHOP.Carz"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SHOP"
+        mc:Ignorable="d"
+        Title="Carz" Height="450" Width="800" Background="#FF85FF7A"
+        MinHeight="450" MinWidth="950">
+
+    <Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="6*"/>
+            </Grid.ColumnDefinitions>
+            <ListView x:Name="Products_ListView" Grid.Column="2" ScrollViewer.CanContentScroll="False" Background="#00AF3434" />
+            <Button Content="купить" FontSize="22" Click="Button_Click" Background="#33000000" />
+        </Grid>
+    </Grid>
+</Window>
