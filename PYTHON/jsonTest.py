@@ -10,7 +10,6 @@ class Basket:
     def deserializer(data: dict | list):
         if isinstance(data, dict):
             return Basket.__create_person(data)
-
         elif isinstance(data, list):
             basket = []
             for value in data:

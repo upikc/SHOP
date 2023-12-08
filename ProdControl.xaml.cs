@@ -26,10 +26,14 @@ namespace SHOP
         {
             InitializeComponent();
 
+            
             ProdClass = Prod;
             count = Prod.Count;
             IntPrise = Prod.Prise;
             DataContext = Prod;
+
+            label1.Content = Prod.Sold;
+
 
             Price.Content = Prod.Prise + " Рублей";
             Count.Content = Prod.Count + " Штук";

@@ -58,6 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Carz.xaml.cs">
+      <DependentUpon>Carz.xaml</DependentUpon>
+    </Compile>
     <Compile Include="class\Class_user.cs" />
     <Compile Include="class\Product_class.cs" />
     <Compile Include="DataBaseContext.cs" />
@@ -76,6 +79,10 @@
     <Compile Include="Window1.xaml.cs">
       <DependentUpon>Window1.xaml</DependentUpon>
     </Compile>
+    <Page Include="Carz.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ImageViev.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

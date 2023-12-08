@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -106,12 +107,11 @@ namespace SHOP
 
 
 
-
-
         public Window1(user Muser)
         {
             InitializeComponent();
             logged_user = Muser;
+
 
             if (logged_user.role == 1)
                 UserButton.Visibility = Visibility.Visible;
@@ -171,19 +171,13 @@ namespace SHOP
         private void UserButton_Click(object sender, RoutedEventArgs e)//покупака
         {
 
-            
+
 
             ChTextBox.Text = "";
             int summ = 0;
 
-            //foreach (ProdControl item in Products_ListView.Items)
-            //{
-            //    int x = int.Parse(item.label1.Content.ToString());
-
-            //    summ += x * item.IntPrise;
-            //    if (x != 0)
-            //        ChTextBox.Text += $"{item.nameLab.Content.ToString()} {x} * {item.IntPrise} = {x * item.IntPrise}\n";
-            //}
+            Carz bask = new Carz(DataBaseContext.Basket(Products_ListView), logged_user);
+            bask.Show();
 
             foreach (Product_class productBuy in DataBaseContext.Basket(Products_ListView))
             {
@@ -193,8 +187,7 @@ namespace SHOP
             }
             ChTextBox.Text += "_____________________\nсумма ровна : " + summ;
 
-            DataBaseContext.SocketSend(JsonConvert.SerializeObject(DataBaseContext.Basket(Products_ListView))+ "{%Yay$}" + JsonConvert.SerializeObject(logged_user));
-
+            
         }
 
         private void AdminButton_Click(object sender, RoutedEventArgs e)

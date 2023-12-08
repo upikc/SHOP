@@ -4,25 +4,27 @@ import json
 from PyQt5.QtWidgets import *
 
 @dataclasses.dataclass
-class Product_class():
-    Name : str
-    Description :str
-    Category_ID :str
-    Creator_ID :str
-    Count :str
-    Prise :str
-    Images :str
-    Sold :str
+class Product_class:
+    Name: str
+    Description: str
+    Category_ID: str
+    Creator_ID: str
+    Count: str
+    Prise: str
+    Images: str
+    Sold: str
 
 
 
 class DataContex():
     def deserialize(prodLoads):
         if isinstance(prodLoads, list):
+            p = []
             for i in prodLoads:
-                p = Product_class(**i)
-                return p
-        if isinstance(prodLoads, dict):
+                p.append(Product_class(**i))
+            return p
+
+        elif isinstance(prodLoads, dict):
             p = Product_class(**prodLoads)
             return p
 
@@ -33,13 +35,19 @@ class MainWindow(QWidget):
         super().__init__()
         self.prodList = prod.split("{%Yay$}")[0]
         print(self.prodList)
+        print(prod.split("{%Yay$}")[1])
         self.prodList = json.loads(self.prodList)
         DataContex.deserialize(self.prodList)
+
+
+
         self.initUI()
 
     def initUI(self):
         vbox = QVBoxLayout()
         self.table = QTableWidget(0, 8)
+
+        self.table.setEditTriggers(QAbstractItemView.EditTrigger.NoEditTriggers)
         self.table.setHorizontalHeaderLabels(
             ["Имя", "Описание", "ID_Cat", "ID_Creat", "Count_in_stock", "prise", "image",
              "Count_purchase"])
@@ -57,14 +65,16 @@ class MainWindow(QWidget):
 
     def writeRows(self, Product: Product_class, row):
         self.table.insertRow(self.table.rowCount())
-        self.table.setItem(row, 0, QTableWidgetItem(Product.Name))
-        self.table.setItem(row, 1, QTableWidgetItem(Product.Description))
+        self.table.setItem(row, 0, QTableWidgetItem(str(Product.Name)))
+        self.table.setItem(row, 1, QTableWidgetItem(str(Product.Description)))
         self.table.setItem(row, 2, QTableWidgetItem(str(Product.Category_ID)))
         self.table.setItem(row, 3, QTableWidgetItem(str(Product.Creator_ID)))
         self.table.setItem(row, 4, QTableWidgetItem(str(Product.Count)))
         self.table.setItem(row, 5, QTableWidgetItem(str(Product.Prise)))
         self.table.setItem(row, 6, QTableWidgetItem(str(Product.Images)))
         self.table.setItem(row, 7, QTableWidgetItem(str(Product.Sold)))
+
+        self.table.resizeColumnsToContents()
 
 
 if __name__ == '__main__':
@@ -92,6 +102,7 @@ if __name__ == '__main__':
 
     #with open(r"C:\Users\u\Desktop\jsonFrom.txt" , "r" , encoding= "UTF-8") as f:
     #    text = f.read()
+
 
     app = QApplication(sys.argv)
     ex = MainWindow(text)
