@@ -3,13 +3,10 @@ from PyQt5.QtWidgets import *
 from DataContex import DataContex, Product_class
 import socket
 
-class MainWindow(QWidget):
-    def __init__(self):
+class ContentWindow(QWidget):
+    def __init__(self, prodListAndUser: tuple):
         super().__init__()
-        prod = DataContex.socketRECV()
-        self.prodList = DataContex.JsonProdLoad(prod, 0)
-        self.User = DataContex.JsonProdLoad(prod, 1)
-
+        self.prodList, self.User = DataContex.tupleOfProdAndUser(prodListAndUser)
         self.initUI()
 
     def initUI(self):
@@ -22,15 +19,11 @@ class MainWindow(QWidget):
              "Count_purchase"])
 
         for j, i in enumerate(self.prodList):
-            self.writeRows(DataContex.deserialize(i), j)
-
-
+            self.writeRows(DataContex.deserializeProd(i), j)
 
         vbox.addWidget(self.table)
-
         self.setLayout(vbox)
         self.setGeometry(300, 300, 920, 450)
-        self.show()
 
     def writeRows(self, Product: Product_class, row):
         self.table.insertRow(self.table.rowCount())
@@ -45,11 +38,3 @@ class MainWindow(QWidget):
 
         self.table.resizeColumnsToContents()
 
-
-if __name__ == '__main__':
-
-
-
-    app = QApplication(sys.argv)
-    ex = MainWindow()
-    sys.exit(app.exec_())

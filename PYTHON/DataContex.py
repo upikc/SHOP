@@ -5,7 +5,7 @@ import socket
 
 class DataContex():
     @staticmethod
-    def deserialize(prodLoads):
+    def deserializeProd(prodLoads):
         if isinstance(prodLoads, list):
             p = []
             for i in prodLoads:
@@ -16,10 +16,12 @@ class DataContex():
             return p
 
     @staticmethod
-    def JsonProdLoad(jsonString, code: int):
-        prodList = jsonString.split("{%Yay$}")[code]
+    def tupleOfProdAndUser(jsonString):
+        prodList = jsonString.split("{%Yay$}")[0]
         prodList = json.loads(prodList)
-        return prodList
+        user = jsonString.split("{%Yay$}")[1]
+        user = json.loads(user)
+        return (prodList , user)
 
     @staticmethod
     def socketRECV():
@@ -44,3 +46,8 @@ class Product_class:
     Images: str
     Sold: str
 
+@dataclasses.dataclass
+class User_class:
+    login: str
+    password: str
+    role: int
