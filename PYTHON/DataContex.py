@@ -1,9 +1,14 @@
 import dataclasses
 import json
 import socket
+from datetime import datetime
 
 
 class DataContex():
+
+    @staticmethod
+    def NowTime():
+        return str(datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
     @staticmethod
     def deserializeProd(prodLoads):
         if isinstance(prodLoads, list):
@@ -22,6 +27,14 @@ class DataContex():
         user = jsonString.split("{%Yay$}")[1]
         user = json.loads(user)
         return (prodList , user)
+
+    @staticmethod
+    def purchaseAmount(prodList : list):
+        summ = 0
+        for Prod in DataContex.deserializeProd(prodList):
+            summ += Prod.Sold * Prod.Prise
+        return summ
+
 
     @staticmethod
     def socketRECV():
