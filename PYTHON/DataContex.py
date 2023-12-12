@@ -48,6 +48,7 @@ class DataContex():
             server.close()
             return text
 
+
 @dataclasses.dataclass
 class Product_class:
     Name: str

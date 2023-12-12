@@ -1,54 +1,43 @@
-import json
-import dataclasses
+from PyQt5 import *
+from PyQt5.QtWidgets import *
 
-@dataclasses.dataclass
-class Basket:
-    Product: str
-    Count: int
+class MyButton(QPushButton):
+    def __init__(self, parent=None):
+        super().__init__(parent)
 
-    @staticmethod
-    def deserializer(data: dict | list):
-        if isinstance(data, dict):
-            return Basket.__create_person(data)
-        elif isinstance(data, list):
-            basket = []
-            for value in data:
-                basket.append(Basket.__create_person(value))
-            return basket
-        else:
-            raise Exception("Exception")
+        # Установить текст на кнопке
+        self.setText("Нажмите меня")
 
-    @staticmethod
-    def __create_person(data: dict):
-        #data['Product'] = Product(**data['Product'])
-        print(json.loads(data))
-        return json.loads(data)
+        # Установить цвет фона кнопки
+        self.setStyleSheet("background-color: blue")
 
+        # Установить действие, которое выполняется при нажатии кнопки
+        self.clicked.connect(self.on_click)
 
-def main():
+    def on_click(self):
+        # Выполнить действие при нажатии кнопки
+        print("На кнопку была нажата!")
 
+class MyForm(QWidget):
+    def __init__(self):
+        super().__init__()
 
-    basket1 = Basket("text1", 11)
-    basket2 = Basket("text2", 22)
+        # Создать макет формы
+        layout = QHBoxLayout()
 
-    lst = [basket1, basket2]
+        # Добавить пользовательскую кнопку в макет формы
+        button = MyButton()
+        layout.addWidget(button)
+        fff = MyButton()
+        layout.addWidget(fff)
 
-    print(lst)
-    print(json.dumps(lst,default=lambda x:x.__dict__))
+        # Установить макет формы на форму
+        self.setLayout(layout)
 
+    def show(self):
+        super().show()
 
-    data_json = '[{"Product": "text1", "Count": 11}, {"Product": "text2", "Count": 22}]'
-    data_json = json.loads(data_json)
-
-
-    for i in data_json:
-        print(i)
-
-
-
-
-
-
-
-if __name__ == '__main__':
-    main()
+app = QApplication([])
+form = MyForm()
+form.show()
+app.exec_()

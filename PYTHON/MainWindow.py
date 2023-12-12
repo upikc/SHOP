@@ -1,5 +1,8 @@
 import sys
 from datetime import datetime
+
+from PyQt5 import QtTest
+from PyQt5.QtCore import QObject, pyqtSignal, QThread
 from PyQt5.QtWidgets import *
 from DataContex import DataContex
 from BASKET import ContentWindow
@@ -40,19 +43,31 @@ class mainWindow(QWidget):  ##это готово
         self.lay = QVBoxLayout()
         self.LayWriter()
 
+
+        self.worker = Worker()
+        thread = QThread(self)
+        self.worker.moveToThread(thread)
+        self.worker.dataChanged.connect(self.updateTable)
+        thread.started.connect(self.worker.task)
+        thread.start()
+
+
         self.setLayout(self.lay)
 
     def WidgetAdd(self, item: QWidget):  ##это готово
         self.lay.addWidget(item)
 
     def LayWriter(self):
-        # RECV = DataContex.socketRECV()  ##тут запись в файл
-        # with open("jsonFrom.txt", "a", encoding="UTF-8") as f:
-        #      f.write("\r" + RECV + "{%Yay$}" + DataContex.NowTime()) ##запихни нас отдельный метод
-
         with open("jsonFrom.txt", "r", encoding="UTF-8") as f:
             for i in f.readlines():
                 self.WidgetAdd(PurchaseLay(i))
+
+    def updateTable(self, data):
+        if data:
+            for i in reversed(range(self.lay.count())):
+                self.lay.itemAt(i).widget().setParent(None)
+            self.LayWriter()
+
 
 
 
@@ -63,9 +78,21 @@ class MainScrollArea(QScrollArea):
         self.setWidget(mainWindow())
         self.setWidgetResizable(True)
         self.show()
-
-
 ##ЗАКОНЧЕНО
+
+
+class Worker(QObject):
+    dataChanged = pyqtSignal(str)
+    def task(self):
+        while True:
+            RECV = DataContex.socketRECV()
+            with open("jsonFrom.txt", "a", encoding="UTF-8") as f:
+                f.write("\r" + RECV + "{%Yay$}" + DataContex.NowTime())
+            print("Воркер сработал")
+            self.dataChanged.emit(RECV)
+
+
+
 
 app = QApplication(sys.argv)
 win = MainScrollArea()
