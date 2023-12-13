@@ -1,7 +1,4 @@
 import sys
-from datetime import datetime
-
-from PyQt5 import QtTest
 from PyQt5.QtCore import QObject, pyqtSignal, QThread
 from PyQt5.QtWidgets import *
 from DataContex import DataContex
@@ -11,38 +8,53 @@ from BASKET import ContentWindow
 class MyButton(QPushButton):
     def __init__(self, prodListAndUser: tuple):
         super().__init__()
-        self.setText("кнопка ")
+        self.setText("Открыть ")
         self.setStyleSheet("background-color: grey")
         self.clicked.connect(lambda: self.on_click(prodListAndUser))
 
     def on_click(self, prodListAndUser: tuple):
-        print("На кнопку была нажата!")  ##тут будет открытие контента
         self.ContenW = ContentWindow(prodListAndUser)
         self.ContenW.show()
-##ЗАКОНЧЕНО
 
-class PurchaseLay(QWidget):  ##экземпляр покупки
+
+class PurchaseLay(QWidget):
     def __init__(self, RECV=None, Datime=None):
         super().__init__()
 
         self.RECV = RECV
         self.prodList, self.userData = DataContex.tupleOfProdAndUser(RECV)
+        self.Summ = DataContex.purchaseAmount(self.prodList)
         self.lay = QGridLayout()
-        self.lay.addWidget(QLabel("Логин: " + str(self.userData)), 0, 0)
-        self.lay.addWidget(QLabel("Сумма покупки: " + str(DataContex.purchaseAmount(self.prodList))), 0, 1)
-        self.lay.addWidget(QLabel("Дата: " + datetime.now().strftime("%m/%d/%Y, %H:%M:%S")), 0, 2)
+        self.lay.addWidget(QLabel("Логин: " + self.userData['login']), 0, 0)
+        self.lay.addWidget(QLabel("Сумма покупки: " + str(self.Summ)), 0, 1)
+        self.lay.addWidget(QLabel("Дата: " + DataContex.timeFromJsonString(RECV)), 0, 2)
         self.lay.addWidget(MyButton(RECV), 0, 3)
 
         self.setLayout(self.lay)
-##ЗАКОНЧЕНО
 
 
-class mainWindow(QWidget):  ##это готово
+class mainWindow(QWidget):
     def __init__(self):
         super().__init__()
+        self.mainLay = QVBoxLayout()
         self.lay = QVBoxLayout()
-        self.LayWriter()
 
+
+        ##добавить сортировку по цене , поиск по данным
+
+        self.mainLay.addWidget(QLabel("Поиск по пользователю"))
+        self.UserSearchTextEdit = QTextEdit()
+        self.mainLay.addWidget(self.UserSearchTextEdit)
+        self.QSortingBox = QComboBox()
+        self.QSortingBox.addItems(["по возростанию", "По убыванию"])
+        self.QSortingBox.currentTextChanged.connect(self.updateTable)
+        self.UserSearchTextEdit.textChanged.connect(self.updateTable)
+        self.mainLay.addWidget(self.QSortingBox)
+
+
+
+        self.mainLay.addLayout(self.lay)
+        self.LayWriter()
 
         self.worker = Worker()
         thread = QThread(self)
@@ -51,24 +63,31 @@ class mainWindow(QWidget):  ##это готово
         thread.started.connect(self.worker.task)
         thread.start()
 
+        self.setLayout(self.mainLay)
 
-        self.setLayout(self.lay)
-
-    def WidgetAdd(self, item: QWidget):  ##это готово
-        self.lay.addWidget(item)
+    def WidgetAdd(self, item: PurchaseLay):
+            self.lay.addWidget(item)
 
     def LayWriter(self):
+        ##тут сортировка
+        revers = self.QSortingBox.currentText() == "По убыванию"
+        NameUserSort = self.UserSearchTextEdit.toPlainText()
+
         with open("jsonFrom.txt", "r", encoding="UTF-8") as f:
+            listLay = []
             for i in f.readlines():
-                self.WidgetAdd(PurchaseLay(i))
+                listLay.append(PurchaseLay(i))
 
-    def updateTable(self, data):
-        if data:
-            for i in reversed(range(self.lay.count())):
-                self.lay.itemAt(i).widget().setParent(None)
-            self.LayWriter()
+            listLay.sort(key=lambda x: x.Summ, reverse=revers)
+            for i in listLay:
+                if NameUserSort in str(i.userData["login"]):
+                    self.WidgetAdd(i)
 
 
+    def updateTable(self):
+        for i in reversed(range(self.lay.count())):
+            self.lay.itemAt(i).widget().setParent(None)
+        self.LayWriter()
 
 
 class MainScrollArea(QScrollArea):
@@ -78,11 +97,14 @@ class MainScrollArea(QScrollArea):
         self.setWidget(mainWindow())
         self.setWidgetResizable(True)
         self.show()
+
+
 ##ЗАКОНЧЕНО
 
 
 class Worker(QObject):
     dataChanged = pyqtSignal(str)
+
     def task(self):
         while True:
             RECV = DataContex.socketRECV()
@@ -90,8 +112,6 @@ class Worker(QObject):
                 f.write("\r" + RECV + "{%Yay$}" + DataContex.NowTime())
             print("Воркер сработал")
             self.dataChanged.emit(RECV)
-
-
 
 
 app = QApplication(sys.argv)

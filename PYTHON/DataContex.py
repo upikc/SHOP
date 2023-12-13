@@ -4,11 +4,12 @@ import socket
 from datetime import datetime
 
 
-class DataContex():
+class DataContex:
 
     @staticmethod
     def NowTime():
         return str(datetime.now().strftime("%m/%d/%Y, %H:%M:%S"))
+
     @staticmethod
     def deserializeProd(prodLoads):
         if isinstance(prodLoads, list):
@@ -21,20 +22,24 @@ class DataContex():
             return p
 
     @staticmethod
-    def tupleOfProdAndUser(jsonString):
-        prodList = jsonString.split("{%Yay$}")[0]
+    def tupleOfProdAndUser(FileString):
+        prodList = FileString.split("{%Yay$}")[0]
         prodList = json.loads(prodList)
-        user = jsonString.split("{%Yay$}")[1]
+        user = FileString.split("{%Yay$}")[1]
         user = json.loads(user)
-        return (prodList , user)
+        return prodList, user
 
     @staticmethod
-    def purchaseAmount(prodList : list):
+    def timeFromJsonString(FileString):
+        dataTime = FileString.split("{%Yay$}")[2]
+        return dataTime
+
+    @staticmethod
+    def purchaseAmount(prodList: list):
         summ = 0
         for Prod in DataContex.deserializeProd(prodList):
-            summ += Prod.Sold * Prod.Prise
+            summ += Prod.Sold * int(Prod.Prise)
         return summ
-
 
     @staticmethod
     def socketRECV():
@@ -43,7 +48,6 @@ class DataContex():
             server.bind(("localhost", 11000))
             server.listen(1)
             client_socket, client_address = server.accept()
-            #print(f"Connected to {client_address}")
             text = client_socket.recv(1024).decode('utf-8')
             server.close()
             return text
@@ -56,9 +60,10 @@ class Product_class:
     Category_ID: str
     Creator_ID: str
     Count: str
-    Prise: str
+    Prise: int
     Images: str
     Sold: str
+
 
 @dataclasses.dataclass
 class User_class:

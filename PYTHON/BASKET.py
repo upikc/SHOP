@@ -22,6 +22,7 @@ class ContentWindow(QWidget):
             self.writeRows(DataContex.deserializeProd(i), j)
 
         vbox.addWidget(self.table)
+        vbox.addWidget(QLabel("сумма заказа :" + str(DataContex.purchaseAmount(self.prodList))))
         self.setLayout(vbox)
         self.setGeometry(300, 300, 920, 450)
 
