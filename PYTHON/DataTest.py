@@ -1,15 +1,16 @@
-
 import unittest
+from datetime import datetime
+
+import DataContex
 
 def add(a, b):
     return a + b
-class TestAddFunction(unittest.TestCase):
-    def test_positive_numbers(self):
-        self.assertEqual(add(2, 3), 5)
 
 
-    def test_negative_numbers(self):
-        self.assertEqual(add(-2, -3), -5)
+class Test(unittest.TestCase):
+    def getTimeTest_Equal(self):
+        self.assertEqual(DataContex.datetime, str(datetime.now().strftime("%m/%d/%Y, %H:%M:%S")))
+
 
 
 
