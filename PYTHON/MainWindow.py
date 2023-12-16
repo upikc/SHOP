@@ -18,7 +18,7 @@ class MyButton(QPushButton):
 
 
 class PurchaseLay(QWidget):
-    def __init__(self, RECV=None, Datime=None):
+    def __init__(self, RECV=None):
         super().__init__()
 
         self.RECV = RECV
@@ -38,10 +38,6 @@ class mainWindow(QWidget):
         super().__init__()
         self.mainLay = QVBoxLayout()
         self.lay = QVBoxLayout()
-
-
-        ##добавить сортировку по цене , поиск по данным
-
         self.mainLay.addWidget(QLabel("Поиск по пользователю"))
         self.UserSearchTextEdit = QTextEdit()
         self.mainLay.addWidget(self.UserSearchTextEdit)
@@ -50,8 +46,6 @@ class mainWindow(QWidget):
         self.QSortingBox.currentTextChanged.connect(self.updateTable)
         self.UserSearchTextEdit.textChanged.connect(self.updateTable)
         self.mainLay.addWidget(self.QSortingBox)
-
-
 
         self.mainLay.addLayout(self.lay)
         self.LayWriter()
@@ -66,7 +60,7 @@ class mainWindow(QWidget):
         self.setLayout(self.mainLay)
 
     def WidgetAdd(self, item: PurchaseLay):
-            self.lay.addWidget(item)
+        self.lay.addWidget(item)
 
     def LayWriter(self):
         ##тут сортировка
@@ -83,7 +77,6 @@ class mainWindow(QWidget):
                 if NameUserSort in str(i.userData["login"]):
                     self.WidgetAdd(i)
 
-
     def updateTable(self):
         for i in reversed(range(self.lay.count())):
             self.lay.itemAt(i).widget().setParent(None)
@@ -97,9 +90,6 @@ class MainScrollArea(QScrollArea):
         self.setWidget(mainWindow())
         self.setWidgetResizable(True)
         self.show()
-
-
-##ЗАКОНЧЕНО
 
 
 class Worker(QObject):
@@ -117,5 +107,3 @@ class Worker(QObject):
 app = QApplication(sys.argv)
 win = MainScrollArea()
 sys.exit(app.exec_())
-
-##НЕ ЗАБЫТЬ УБРАТЬ ПУСТЫЕ ПУРЧАЧАСЫ ИЗ С#

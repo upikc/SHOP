@@ -1,7 +1,5 @@
-import sys
 from PyQt5.QtWidgets import *
 from DataContex import DataContex, Product_class
-import socket
 
 
 class ContentWindow(QWidget):
@@ -45,5 +43,5 @@ class ContentWindow(QWidget):
 
     def dataWrite(self, reverse: bool):
         self.prodList.sort(key=lambda x: int(x["Prise"]), reverse=reverse)
-        for j, i in enumerate(self.prodList):  # сортировать сюда
+        for j, i in enumerate(self.prodList):
             self.writeRows(DataContex.deserializeProd(i), j)
