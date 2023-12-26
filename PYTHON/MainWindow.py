@@ -23,6 +23,7 @@ class PurchaseLay(QWidget):
 
         self.RECV = RECV
         self.prodList, self.userData = DataContex.tupleOfProdAndUser(RECV)
+        #print(self.prodList)
         self.Summ = DataContex.purchaseAmount(self.prodList)
         self.lay = QGridLayout()
         self.lay.addWidget(QLabel("Логин: " + self.userData['login']), 0, 0)
@@ -63,19 +64,15 @@ class mainWindow(QWidget):
         self.lay.addWidget(item)
 
     def LayWriter(self):
-        ##тут сортировка
         revers = self.QSortingBox.currentText() == "По убыванию"
         NameUserSort = self.UserSearchTextEdit.toPlainText()
-
-        with open("jsonFrom.txt", "r", encoding="UTF-8") as f:
-            listLay = []
-            for i in f.readlines():
-                listLay.append(PurchaseLay(i))
-
-            listLay.sort(key=lambda x: x.Summ, reverse=revers)
-            for i in listLay:
-                if NameUserSort in str(i.userData["login"]):
-                    self.WidgetAdd(i)
+        listLay = []
+        for i in DataContex.jsonReadLines():
+            listLay.append(PurchaseLay(i))  #создаем лаяуты и делаем лист
+        listLay.sort(key=lambda x: x.Summ, reverse=revers)
+        for i in listLay:
+            if NameUserSort in str(i.userData["login"]):
+                self.WidgetAdd(i)
 
     def updateTable(self):
         for i in reversed(range(self.lay.count())):
@@ -98,8 +95,7 @@ class Worker(QObject):
     def task(self):
         while True:
             RECV = DataContex.socketRECV()
-            with open("jsonFrom.txt", "a", encoding="UTF-8") as f:
-                f.write("\r" + RECV + "{%Yay$}" + DataContex.NowTime())
+            DataContex.jsonWriter(RECV)
             print("Воркер сработал")
             self.dataChanged.emit(RECV)
 

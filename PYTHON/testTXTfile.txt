@@ -1,0 +1,2 @@
+[{"Name":"Ромашки","Description":"новые цветы","Category_ID":3,"Creator_ID":3,"Count":6,"Prise":10,"Images":"C:\\Users\\u\\Pictures\\ромашки.png","Sold":2}]
+[{"Name":"Ромашки","Description":"новые цветы","Category_ID":3,"Creator_ID":3,"Count":6,"Prise":10,"Images":"C:\\Users\\u\\Pictures\\ромашки.png","Sold":2},{"Name":"Стул","Description":"создание через редактор","Category_ID":2,"Creator_ID":0,"Count":5,"Prise":5,"Images":"C:\\Users\\u\\source\\repos\\SHOP\\bin\\Debug\\images\\1.jpg","Sold":5}]

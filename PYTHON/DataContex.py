@@ -42,16 +42,25 @@ class DataContex:
         return summ
 
     @staticmethod
+    def jsonReadLines():
+        with open("jsonFrom.txt", "r", encoding="UTF-8") as f:
+            return f.readlines()
+
+    @staticmethod
     def socketRECV():
         while True:
             server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             server.bind(("localhost", 11000))
             server.listen(1)
-            client_socket, client_address = server.accept()
-            text = client_socket.recv(1024).decode('utf-8')
+            client_data, client_address = server.accept()
+            text = client_data.recv(1024).decode('utf-8')
             server.close()
             return text
 
+    @staticmethod
+    def jsonWriter(string):
+        with open("jsonFrom.txt", "a", encoding="UTF-8") as f:
+            f.write("\r" + string + "{%Yay$}" + DataContex.NowTime())
 
 @dataclasses.dataclass
 class Product_class:
@@ -70,3 +79,4 @@ class User_class:
     login: str
     password: str
     role: int
+
